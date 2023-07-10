@@ -111,9 +111,95 @@ Dependencies는 웹 프로젝트를 하기 위해서 ****Spring Web****과 html
 
 Build, Execution, Deployment의 Gradle 탭에서 Build and run using과 Run tests using을 Gradle 이 아닌 인텔리제이로 변경하면 gradle을 통하지 않고 바로 바로 실행할 수 있기 때문에 보다 빠르게 실행할 수 있다.
 <br><br><br><br><br><br>
+
 ### ➡️ 라이브러리 살펴보기
 
 ### ➡️ View 환경설정
 
+**1\. Welcome page 만들기**
+
+위와 같이 src - resources- static에 새로운 html 파일을 만들어서 index.html 을 생성하고
+
+```
+<!DOCTYPE HTML>
+<html>
+<head>
+ <title>Hello</title>
+ <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+Hello
+<a href="/hello">hello</a>
+</body>
+</html>
+```
+
+를 작성후 종료후 재 실행하게 되면
+
+이렇게 간단한 페이지가 생성된다.
+
+**2\. 스프링에서 제공하는 Welcome page 기능**
+
+**[https://spring.io/](https://spring.io/)**
+
+sping.io에서 \[Projects\] - \[Spring Boot\] -\[learn\] - \[3.0.8의 Reference Doc\] - \[Web\] - index.html 검색 후 welcome page 찾기
+
+**3\. controller 만들어 thymelaf 템플린 엔진 동작 확인해보기**
+
+hello에 controller 패키지 생성 후 HelloController 라는 자바 파일을 생성한다.
+
+```
+package hello.hello.controller;
+
+
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+
+@Controller
+public class HelloController {
+
+    @GetMapping("hello")
+    public String hello(Model model){
+        model.addAttribute("data", "hello ~~ !");
+        return "hello";
+    }
+}
+```
+
+코드의 의미는 getMapping(URL) 방식으로 hello 라는 이름으로 요청이 들어올때 hello 메소드가 실행되는데 이때 파라미터로 받은 model에서 key 가 data인 value를 hello ~~ !로 변경한 후 이 모델을 resource 파일의 hello.html로 보낸다는 의미이다.
+
+```
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Hello</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+<p th:text="'안녕하세요. ' + ${data}" >안녕하세요. 손님</p>
+</body>
+</html>
+```
+
+이때 hello.html 에서는 모델을 받아와  key 가 data인 value을 ${data}에 넣게 되어 
+
+
+위와 같이 화면이 출력된다. !
+
+
+thymelaf 템플릿 엔진은 컨트롤러에서 "hello"라는 문자열을 반환하면 뷰 리졸버가 화면을 찾아서 처리하게 된다.
 
 ### ➡️ 빌드하고 실행하기
+
+1\. 콘솔 cmd에서 프로젝트 위치로 이동
+
+2.  ./gradlew build
+
+3\. cd build/libs
+
+4\. java -jar hello-spring-0.0.1-SNAPSHOT.jar
+
+5\. 실행확인
+
+참고 : spring-boot-devtools 라이브러리를 추가하면 html 파일을 컴파일만 해주면 서버 재시작 없이 view 파일 변경이 가능하다.
