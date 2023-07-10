@@ -15,9 +15,9 @@
 <br>
 <br>
 ✏️ 학습 일정
-- 07.10 (월)
+- 07.10 (월) 
   - 섹션 0. 강의소개
-  - 섹션 1. 프로젝트 환경설정
+  - [섹션 1. 프로젝트 환경설정](https://github.com/An0401na/Spring_Study/blob/main/section%2001.%20%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8%20%ED%99%98%EA%B2%BD%EC%84%A4%EC%A0%95/README.md) 
   - 섹션 2. 스프링 웹 개발 기초
     
 - 07.11 (화)
